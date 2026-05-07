@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "categoria": "alimentacao",
+        "valor": 500.00,
+        "data": "2024-06-01"
+    },
+    {
+        "id": 2,
+        "categoria": "transporte",
+        "valor": 150.00,
+        "data": "2024-06-02"
+    },
+    {
+        "id": 3,
+        "categoria": "lazer",
+        "valor": 200.00,
+        "data": "2024-06-03"
+    },
+    {
+        "id": 4,
+        "categoria": "educacao",
+        "valor": 300.00,
+        "data": "2024-06-04"
+    },
+    {
+        "id": 5,
+        "categoria": "saude",
+        "valor": 250.00,
+        "data": "2024-06-05"
+    }
+]
