@@ -64,10 +64,7 @@ export function useFinancialControl() {
   function adicionarGasto(novoGasto) {
     setGastos((prev) => [
       ...prev,
-      {
-        ...novoGasto,
-        id: Date.now(),
-      },
+      novoGasto,
     ]);
   }
 
