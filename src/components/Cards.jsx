@@ -1,13 +1,30 @@
-import { CATEGORIAS, fmt } from "../App";
+import { CATEGORIAS } from "../constants/categories";
+import { formatCurrency } from "../utils/formatter";
 
-export default function Cards({ totaisPorCategoria }) {
+export default function Cards({
+  totaisPorCategoria,
+}) {
   return (
     <div className="card-container">
       <div className="gastos">
-        {CATEGORIAS.map((c) => (
-          <div key={c.key} className="card" style={{ backgroundColor: c.color }}>
-            <h3>{c.label}</h3>
-            <p>{fmt(totaisPorCategoria[c.key])}</p>
+        {CATEGORIAS.map((categoria) => (
+          <div
+            key={categoria.key}
+            className="card"
+            style={{
+              backgroundColor:
+                categoria.color,
+            }}
+          >
+            <h3>{categoria.label}</h3>
+
+            <p>
+              {formatCurrency(
+                totaisPorCategoria[
+                  categoria.key
+                ]
+              )}
+            </p>
           </div>
         ))}
       </div>

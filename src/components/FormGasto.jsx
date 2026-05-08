@@ -1,30 +1,99 @@
 import { useState } from "react";
-import { CATEGORIAS } from "../App";
 
-export default function FormGasto({ onAdd }) {
-  const [descricao, setDescricao] = useState("");
-  const [valor, setValor] = useState("");
-  const [categoria, setCategoria] = useState("alimentacao");
+import { CATEGORIAS } from "../constants/categories";
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const v = parseFloat(valor);
-    if (!descricao.trim() || isNaN(v) || v <= 0) return;
-    onAdd({ descricao: descricao.trim(), valor: v, categoria });
-    setDescricao(""); setValor("");
+export default function FormGasto({
+  onAdd,
+}) {
+  const [descricao, setDescricao] =
+    useState("");
+
+  const [valor, setValor] =
+    useState("");
+
+  const [categoria, setCategoria] =
+    useState("alimentacao");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const valorConvertido =
+      parseFloat(valor);
+
+    if (
+      !descricao.trim() ||
+      isNaN(valorConvertido) ||
+      valorConvertido <= 0
+    ) {
+      return;
+    }
+
+    // OBJETO PADRONIZADO
+    onAdd({
+      id: Date.now(),
+
+      type: "expense",
+
+      description:
+        descricao.trim(),
+
+      amount: valorConvertido,
+
+      category: categoria,
+
+      date: new Date()
+        .toISOString()
+        .split("T")[0],
+    });
+
+    setDescricao("");
+    setValor("");
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form">
-      <input type="text" placeholder="Descrição" value={descricao}
-        onChange={(e) => setDescricao(e.target.value)} />
-      <input type="number" placeholder="Valor" value={valor}
-        onChange={(e) => setValor(e.target.value)} step="0.01" min="0"
-        style={{ maxWidth: 120 }} />
-      <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-        {CATEGORIAS.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
+    <form
+      onSubmit={handleSubmit}
+      className="form"
+    >
+      <input
+        type="text"
+        placeholder="Descrição"
+        value={descricao}
+        onChange={(event) =>
+          setDescricao(event.target.value)
+        }
+      />
+
+      <input
+        type="number"
+        placeholder="Valor"
+        value={valor}
+        onChange={(event) =>
+          setValor(event.target.value)
+        }
+        step="0.01"
+        min="0"
+      />
+
+      <select
+        value={categoria}
+        onChange={(event) =>
+          setCategoria(event.target.value)
+        }
+      >
+        {CATEGORIAS.map((categoria) => (
+          <option
+            key={categoria.key}
+            value={categoria.key}
+          >
+            {categoria.label}
+          </option>
+        ))}
       </select>
-      <button type="submit">+ Adicionar</button>
+
+      <button type="submit">
+        + Adicionar
+      </button>
     </form>
   );
 }
